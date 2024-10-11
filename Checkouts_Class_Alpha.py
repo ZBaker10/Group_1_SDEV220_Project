@@ -66,8 +66,49 @@ class CheckoutNew(tk.Tk):
     def __init__(self):
         super().__init__()
         self.geometry('400x850')
-        self.title("New Checkout")
+        self.title("Staff Login")
 
+        self.create_login_frame()
+
+    def create_login_frame(self):
+        #create login labels and inputs
+        username_label = tk.Label(self, text="Username:")
+        username_label.grid(column=0, row=0, padx=0, pady=5)
+
+        self.username_input = tk.Entry(self)
+        self.username_input.grid(column=1, row=0, padx=10, pady=5)
+
+        password_label = tk.Label(self, text="Password")
+        password_label.grid(column=0, row=1, padx=10, pady=5)
+
+        
+        self.password_input = tk.Entry(self, show="*")
+        self.password_input.grid(column=1, row=1, padx=10, pady=5)
+
+        #login button
+        login_button = tk.Button(self, text="Login", command=slef.login)
+        login_button.grid(column=0, row=2, columnspan=2, pady=10)
+
+        #frame to hold checkout functionality
+        self.checkout_frame = None
+        
+    def login(self):
+        username = self.username_input.get()
+        password = self.password_input.get()
+
+        if username == "Admin" and password =="Password01":
+            self.show_checkout_frame()
+        else:
+            message.showerror("Login Error", "Invalid username or password.")
+
+    def show_checkout_frame(self):
+        #destroy login widgets
+        for widget in self.winfo_children():
+            widget.destroy()
+
+        self.geometry('400x850')
+        self.title("New Checkout")
+        
         # Checkout form
         check_name_label = tk.Label(self, text="Clerk name:", relief="raised")
         check_name_label.grid(column=0, row=0, padx=10, pady=5)
